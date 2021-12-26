@@ -1,0 +1,24 @@
+extends layout
+
+include mixins/_shoutCard
+include mixins/_shoutForm
+include mixins/_userInfoCard
+
+block content
+  .content
+    .tri-grid-container
+      .tri-grid-container__item
+        +userInfoCard()
+
+      .tri-grid-container__item
+        +shoutForm()
+        ul.feed
+          each shout in shouts
+            li.feed__item
+              +shoutCard(shout, shout.author)
+              
+      .tri-grid-container__item
+        .card.footer
+          ul.footer__links-list
+            li.footer__item
+              a(href="#").footer__link Made by Seth Church

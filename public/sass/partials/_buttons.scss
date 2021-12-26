@@ -1,0 +1,50 @@
+.button {
+  font-size: 1.5em;
+  border: 0;
+  background: $accent;
+  color: $text-color;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.shout-btn {
+  background: $accent;
+  border: 0;
+  color: $text-color;
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 100rem;
+  margin-left: 1rem;
+  &:disabled {
+    background: desaturate($accent, 40%);
+    cursor: not-allowed;
+  }
+}
+
+.follow-btn {
+  @extend .shout-btn;
+  color: transparent;
+  &:before {
+    color: $text-color;
+    content: 'Follow';
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    top: 0;
+    left: 0;
+  }
+  &--active {
+    &:before {
+      content: 'Following';
+    }
+    &:hover {
+      background: #ac002b;
+      &:before {
+        content: 'Unfollow';
+      }
+    }
+  }
+}

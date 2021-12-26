@@ -1,0 +1,37 @@
+mixin shoutCard(shout)
+  .card.shout-card
+      //- pre= h.dump(shout)
+      img(src=`${shout.author.avatar ? '/uploads/' + shout.author.avatar : '/images/avatar/user.png'}`).shout-card__author-image
+      .shout-card__content
+        .shout-card__header
+          .shout-card__header--info
+            span.shout-card__name= shout.author.name
+            span.shout-card__handle @#{shout.author.handle}
+            span.shout-card__time= h.moment(shout.created).fromNow()
+          .dropdown.shout-card__dropdown
+            button.dropdown__toggle-btn
+              i.fa.fa-chevron-down
+            if(shout.author.equals(user._id))
+              .dropdown__menu
+                ul.dropdown__list
+                  //- li.dropdown__link
+                  //-   button(data-clipboard-action="copy"  data-clipboard-text=`/${shout.author.handle}/status/${shout._id}`).dropdown__link-btn Copy link to shout
+                  li.dropdown__link
+                    form(action=`/shout/${shout._id}?_method=DELETE` method="POST").dropdown__form
+                      button.dropdown__link-btn.dropdown__link-btn--danger Delete Shout
+        .shout-card__body
+          p.shout-card__text= shout.body
+          if(shout.image)
+            img(src=`/uploads/${shout.image}`).shout-card__image
+        .shout-card__controls
+          button.shout-card__control-item
+            i.fa.fa-comments-o.shout-card__control-item--icon
+            p.shout-card__control-item--value= shout.replies.length > 0 ? h.formatNumber(shout.replies.length) : ''
+          button.shout-card__control-item
+            i.fa.fa-retweet.shout-card__control-item--icon
+            p.shout-card__control-item--value= shout.reshouts > 0 ? h.formatNumber(shout.reshouts) : ''
+          - const likeString = user.likes.map(obj => obj.toString());
+          - const likeBtnClass = likeString.includes(shout._id.toString()) ? 'shout-card__control-item--active' : '';
+          button.shout-card__likes.shout-card__control-item(data-action=`/api/shout/${shout._id}/like` class=likeBtnClass)
+            i.fa.fa-heart-o.shout-card__control-item--icon
+            p.shout-card__control-item--value= shout.likes > 0 ? h.formatNumber(shout.likes) : ''

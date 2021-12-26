@@ -1,0 +1,11 @@
+extends userLayout
+
+include ../mixins/_shoutCard
+
+block content
+  .flex-container__item
+    ul.feed
+      each shout in profile.likes
+        li.feed__item
+          +shoutCard(shout)
+  .flex-container__item

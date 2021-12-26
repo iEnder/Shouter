@@ -1,0 +1,30 @@
+extends userLayout
+
+include ../mixins/_shoutCard
+include ../mixins/_shoutForm
+
+block content
+  if(profile.shouts.length)
+    .flex-container__item
+      //- ul.user-shout-nav
+      //-   li.user-shout-nav__item
+      //-     a.user-shout-nav__link(href=`/${profile.handle}` class=(currentPath == `/${profile.handle}` ? "user-shout-nav__link--active" : "")) shouts
+      //-   li.user-shout-nav__item
+      //-     a.user-shout-nav__link(href=`/${profile.handle}/with_replies` class=(currentPath == `/${profile.handle}/with_replies` ? "user-shout-nav__link--active" : "")) shouts & replies
+      //-   li.user-shout-nav__item
+      //-     a.user-shout-nav__link(href=`/${profile.handle}/media` class=(currentPath == `/${profile.handle}/media` ? "user-shout-nav__link--active" : "")) Media
+          
+      if(isOwner)
+        +shoutForm()
+
+      ul.feed
+        each shout in profile.shouts
+          li.feed__item
+            +shoutCard(shout, profile)
+  else
+    .user-shout-nav__no-shouts.content--center
+      p
+        |@#{profile.handle} 
+        span hasn't shouted
+          
+  .flex-container__item

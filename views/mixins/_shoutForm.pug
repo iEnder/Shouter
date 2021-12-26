@@ -1,0 +1,9 @@
+mixin shoutForm()
+  form(action="/shout/new" method="POST" class="shout-form" enctype="multipart/form-data")
+    .shout-form__body
+      textarea(name="body" id="shout-input" maxlength=280 placeholder="What's happening?" rows="5").shout-form__input
+    .shout-form__controls
+      div(onClick="document.querySelector('#image-input').click()" class="shout-form__image-btn")
+        i.fa.fa-picture-o.fa-2x
+      input(type="file" name="image" id="image-input" accept="image/gif, image/png, image/jpeg" style="display: none").shout-form__btn
+      button(type="submit" id="shout-submit" disabled).shout-btn Shout
